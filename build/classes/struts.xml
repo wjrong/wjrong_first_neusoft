@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.action.extension" value="action"/>
+	<constant name="struts.objectFactory"  value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	
+	<package name="default" extends="struts-default">
+		
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.wjrong.interceptor.LoginInterceptor" />
+			<interceptor-stack name="loginInter">
+				<interceptor-ref name="loginInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<global-results>
+			<result name="exception">admin/jsp/exception/exception.jsp</result>
+			<result name="login">admin/login.jsp</result>
+		</global-results>
+	
+		<global-exception-mappings>
+			<exception-mapping result="exception" exception="com.wjrong.exception.DException"></exception-mapping>
+		</global-exception-mappings>
+    	
+		
+    	<action name="html_*_*" class="html{1}Action" method="{2}" >
+			<result name="success">{1}_{2}.jsp</result>
+			<result type="redirect" name="redirect">${url}</result>
+			<interceptor-ref name="defaultStack" />
+		</action>
+
+		<action name="*_*" class="{1}Action" method="{2}">
+			<result name="success">admin/jsp/{1}/{2}.jsp</result>
+			<result name="Categoryid01">admin/jsp/{1}/listCid/listcid01.jsp</result>
+			<result name="Categoryid02">admin/jsp/{1}/listCid/listcid02.jsp</result>
+			<result name="Categoryid03">admin/jsp/{1}/listCid/listcid03.jsp</result>
+			<result name="Categoryid04">admin/jsp/{1}/listCid/listcid04.jsp</result>
+			<result name="Categoryid05">admin/jsp/{1}/listCid/listcid05.jsp</result>
+			<result name="Categoryid06">admin/jsp/{1}/listCid/listcid06.jsp</result>
+			<result name="Categoryid07">admin/jsp/{1}/listCid/listcid07.jsp</result>
+			<result name="Categoryid08">admin/jsp/{1}/listCid/listcid08.jsp</result>
+			<result name="Categoryid09">admin/jsp/{1}/listCid/listcid09.jsp</result>
+			<result name="Categoryid10">admin/jsp/{1}/listCid/listcid10.jsp</result>
+			<result name="Categoryid11">admin/jsp/{1}/listCid/listcid11.jsp</result>
+			<result name="Categoryid12">admin/jsp/{1}/listCid/listcid12.jsp</result>
+			<result name="Categoryid13">admin/jsp/{1}/listCid/listcid13.jsp</result>
+			<result name="Categoryid14">admin/jsp/{1}/listCid/listcid14.jsp</result>
+
+			
+			<result name="input">admin/jsp/{1}/{2}Input.jsp</result>
+			<result type="redirect" name="redirect">${url}</result>
+			<interceptor-ref name="loginInter" />
+		</action>
+	</package>
+	
+	
+	<package name="struts2_json" extends="json-default">
+	
+		<action name="wap_Article_show" class="com.wjrong.action.wap.JsonArticleAction"  method="show">
+
+		</action>
+		
+		<action name="wap_Article_list" class="com.wjrong.action.wap.JsonArticleAction"  method="list">
+
+		</action>
+		
+		<action name="wap_Article_listcid" class="com.wjrong.action.wap.JsonArticleAction"  method="listcid">
+
+		</action>
+		
+		<action name="wap_Article_listnumber" class="com.wjrong.action.wap.JsonArticleAction"  method="listNumber">
+
+		</action>
+		
+		<action name="wap_Article_listNoNull" class="com.wjrong.action.wap.JsonArticleAction"  method="listNoNull">
+
+		</action>
+		
+		<action name="wap_*_*" class="com.wjrong.action.wap.Json{1}Action"  method="{2}">
+
+		</action>
+		
+		
+		<action name="wap_Picture_show" class="com.wjrong.action.wap.JsonPictureAction"  method="show">
+
+		</action>
+		
+		<action name="wap_Picture_list" class="com.wjrong.action.wap.JsonPictureAction"  method="list">
+
+		</action>
+		
+		<action name="wap_Picture_listcid" class="com.wjrong.action.wap.JsonPictureAction"  method="listcid">
+
+		</action>
+		
+		<action name="wap_Picture_listnumber" class="com.wjrong.action.wap.JsonPictureAction"  method="listNumber">
+
+		</action>
+	
+	</package>
+	
+		<!-- 图片上传(editor)-->
+	<package name="editor" extends="struts-default" namespace="/">
+		<action name="upload_*" class="com.wjrong.editor.UploadAction" method="{1}"/>
+	</package>
+	
+</struts>    
